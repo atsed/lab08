@@ -118,7 +118,7 @@ $ edit README.md # Редактируем файл
 $ git status # Показывает рабочий статус дерева
 $ git add . # Добавить содержимое
 $ git commit -m"added sources" # Коммитим
-$ git push origin master # Пушим 
+$ git push origin master # Пушим.
 ```
 
 ## Report
