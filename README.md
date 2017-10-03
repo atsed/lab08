@@ -1,145 +1,116 @@
 [![Build Status](https://travis-ci.org/GolubDobra/lab05.svg?branch=master)](https://travis-ci.org/GolubDobra/lab05)
-## Laboratory work IV
+## Laboratory work V
 
-Данная лабораторная работа посвещена изучению систем контроля версий на примере **Git**.
+Данная лабораторная работа посвещена изучению систем непрерывной интеграции на примере сервиса **Travis CI**
 
-```bash
-$ open https://git-scm.com  # Открыть полезный сайт
+```ShellSession
+$ open https://travis-ci.org
 ```
 
 ## Tasks
 
-- [X] 1. Создать публичный репозиторий с названием **lab03** и с лиценцией **MIT**
-- [X] 2. Ознакомиться со ссылками учебного материала
-- [X] 3. Выполнить инструкцию учебного материала
-- [X] 4. Составить отчет и отправить ссылку личным сообщением в **Slack**
+- [x] 1. Авторизоваться на сервисе **Travis CI** с использованием **GitHub** аккаунта
+- [x] 2. Создать публичный репозиторий с названием **lab05** на сервисе **GitHub**
+- [x] 3. Ознакомиться со ссылками учебного материала
+- [x] 4. Включить интеграцию сервиса **Travis CI** с созданным репозиторием
+- [x] 5. Получить токен для **Travis CLI** с правами **repo** и **user**
+- [x] 6. Получить фрагмент вставки значка сервиса **Travis CI** в формате **Markdown**
+- [x] 7. Установить [**Travis CLI**](https://github.com/travis-ci/travis.rb#installation)
+- [x] 8. Выполнить инструкцию учебного материала
+- [x] 9. Составить отчет и отправить ссылку личным сообщением в **Slack**
 
 ## Tutorial
 
 ```ShellSession
-$ export GITHUB_USERNAME=DespiteDeath # Устанавливаем значение переменной окружения GITHUB_USERNAME
-$ export GITHUB_EMAIL=12l12z12k@gmail.com # Устанавливаем значение переменной окружения
-$ alias edit=subl # Выбираем текстовый редактор, в котором будем работать
+$ export GITHUB_USERNAME=<имя_пользователя>
+$ export GITHUB_TOKEN=<полученный_токен>
 ```
 
 ```ShellSession
-$ mkdir lab03 && cd lab03 # Создаем директорию, меняем директорию
-$ git init # Инициализируем существующее хранилище
-$ git config --global user.name ${GITHUB_USERNAME} # Объявлем юзернейм
-$ git config --global user.email ${GITHUB_EMAIL} # Объявляем почту
-$ git config -e --global # Редактируем 
-$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab03 #
-$ git pull origin master # Объединяем репозиторий
-$ touch README.md # Добавляем README
-$ git status # Показываем статус
-$ git add README.md # Добавляем файл
-$ git commit -m"added README.md" # Коммитим
-$ git push origin master # Пушим
-```
-
-Добавить на сервисе **GitHub** в репозитории **lab03** файл **.gitignore**
-со следующем содержимом:
-
-```ShellSession
-*build*/ 
-*install*/
-*.swp
+$ git clone https://github.com/${GITHUB_USERNAME}/lab04 lab05
+$ cd lab05
+$ git remote remove origin
+$ git remote add origin https://github.com/${GITHUB_USERNAME}/lab05
 ```
 
 ```ShellSession
-$ git pull origin master # Объединяем репозиторий
-$ git log # Смотрим логи
-```
-
-```ShellSession
-$ mkdir sources # Создаем папку sources
-$ mkdir include # Создаем папку include
-$ mkdir examples # Создаем папку examples 
-```
-
-Cоздаем и записываем новый файл (print.cpp) в папке sources
-
-```ShellSession
-$ cat > sources/print.cpp <<EOF
-#include <print.hpp>
-
-void print(const std::string& text, std::ostream& out) {
-  out << text;
-}
-
-void print(const std::string& text, std::ofstream& out) {
-  out << text;
-}
-EOF
-```
-Cоздаем и записываем новый файл (print.hpp) в папке include
-
-```ShellSession
-$ cat > include/print.hpp <<EOF 
-#include <string>
-#include <fstream>
-#include <iostream>
-
-void print(const std::string& text, std::ostream& out = std::cout);
-void print(const std::string& text, std::ofstream& out);
-EOF
-```
-Cоздаем и записываем новый файл (example1.сpp) в папке examples
-
-```ShellSession
-$ cat > examples/example1.cpp <<EOF
-#include <print.hpp>
-
-int main(int argc, char** argv) {
-  print("hello");
-}
-EOF
-```
-Cоздаем и записываем новый файл (example2.сpp) в папке examples
-
-```ShellSession
-$ cat > examples/example2.cpp <<EOF
-#include <fstream>
-#include <print.hpp>
-
-int main(int argc, char** argv) {
-  std::ofstream file("log.txt");
-  print(std::string("hello"), file);
-}
+$ cat > .travis.yml <<EOF
+language: cpp
 EOF
 ```
 
 ```ShellSession
-$ edit README.md # Редактируем файл
+$ cat >> .travis.yml <<EOF
+
+script:
+- cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install
+- cmake --build _build
+- cmake --build _build --target install
+EOF
 ```
 
-Отправляем последние  изменения на GitHub сервер
 ```ShellSession
-$ git status # Показывает рабочий статус дерева
-$ git add . # Добавить содержимое
-$ git commit -m"added sources" # Коммитим
-$ git push origin master # Пушим.
+$ cat >> .travis.yml <<EOF
+
+addons:
+  apt:
+    sources:
+      - george-edison55-precise-backports
+    packages:
+      - cmake
+      - cmake-data
+EOF
+```
+
+```ShellSession
+$ travis login --github-token ${GITHUB_TOKEN}
+```
+
+```ShellSession
+$ travis lint
+```
+
+```ShellSession
+$ ex -sc '1i|<фрагмент_вставки_значка>' -cx README.md
+```
+
+```ShellSession
+$ git add .travis.yml
+$ git add README.md
+$ git commit -m"added CI"
+$ git push origin master
+```
+
+```ShellSession
+$ travis lint
+$ travis accounts
+$ travis sync
+$ travis repos
+$ travis enable
+$ travis whatsup
+$ travis branches
+$ travis history
+$ travis show
 ```
 
 ## Report
 
 ```ShellSession
-$ cd ~/workspace/labs/ 
-$ export LAB_NUMBER=03 
-$ git clone https://github.com/tp-labs/lab${LAB_NUMBER} tasks/lab${LAB_NUMBER} 
-$ mkdir reports/lab${LAB_NUMBER} 
-$ cp tasks/lab${LAB_NUMBER}/README.md reports/lab${LAB_NUMBER}/REPORT.md 
-$ cd reports/lab${LAB_NUMBER} 
-$ edit REPORT.md 
+$ cd ~/workspace/labs/
+$ export LAB_NUMBER=05
+$ git clone https://github.com/tp-labs/lab${LAB_NUMBER} tasks/lab${LAB_NUMBER}
+$ mkdir reports/lab${LAB_NUMBER}
+$ cp tasks/lab${LAB_NUMBER}/README.md reports/lab${LAB_NUMBER}/REPORT.md
+$ cd reports/lab${LAB_NUMBER}
+$ edit REPORT.md
 $ gistup -m "lab${LAB_NUMBER}"
 ```
 
 ## Links
 
-- [GitHub](https://github.com)
-- [Bitbucket](https://bitbucket.org)
-- [Gitlab](https://about.gitlab.com)
-- [LearnGitBranching](http://learngitbranching.js.org/)
+- [Travis Client](https://github.com/travis-ci/travis.rb)
+- [AppVeyour](https://www.appveyor.com/)
+- [GitLab CI](https://about.gitlab.com/gitlab-ci/)
 
 ```
 Copyright (c) 2017 Братья Вершинины
