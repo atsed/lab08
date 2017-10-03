@@ -25,6 +25,7 @@ $ open https://travis-ci.org
 $ export GITHUB_USERNAME=<имя_пользователя>
 $ export GITHUB_TOKEN=<полученный_токен>
 ```
+###Инициализация директории lab04
 
 ```ShellSession
 $ git clone https://github.com/${GITHUB_USERNAME}/lab04 lab05
@@ -32,6 +33,7 @@ $ cd lab05
 $ git remote remove origin
 $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab05
 ```
+###Работа с файлом .travis.yml
 
 ```ShellSession
 $ cat > .travis.yml <<EOF
@@ -61,6 +63,7 @@ addons:
       - cmake-data
 EOF
 ```
+###Заходим в аккаунт на сервисе Travis с помощью github token
 
 ```ShellSession
 $ travis login --github-token ${GITHUB_TOKEN}
@@ -73,6 +76,7 @@ $ travis lint
 ```ShellSession
 $ ex -sc '1i|<фрагмент_вставки_значка>' -cx README.md
 ```
+###Отправляем последние изменения на GitHub сервер
 
 ```ShellSession
 $ git add .travis.yml
