@@ -1,4 +1,4 @@
-<фрагмент_вставки_значка>
+[![Build Status](https://travis-ci.org/GolubDobra/lab05.svg?branch=master)](https://travis-ci.org/GolubDobra/lab05)
 ## Laboratory work IV
 
 Данная лабораторная работа посвещена изучению систем контроля версий на примере **Git**.
