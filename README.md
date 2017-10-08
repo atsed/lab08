@@ -35,7 +35,7 @@ $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06
 ```ShellSession
 $ mkdir tests       				#Создаем каталог tests
 $ wget https://github.com/philsquared/Catch/releases/download/v1.9.3/catch.hpp -O tests/catch.hpp    #Подключаем библиотеку для модульного тестирования на языке С++ catch.hpp
-$ cat > tests/main.cpp <<EOF                    # Изменяем файл main.cpp
+$ cat > tests/main.cpp <<EOF                    #Изменяем файл main.cpp
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 EOF
@@ -44,7 +44,7 @@ EOF
 #### Добавляем изменения в **CMakeLists.txt**
 
 ```ShellSession
-$ sed -i '' '/option(BUILD_EXAMPLES "Build examples" OFF)/a\    # Записываем option(BUILD_TESTS "Build tests" OFF) в файл CMakeLists.txt
+$ sed -i '' '/option(BUILD_EXAMPLES "Build examples" OFF)/a\    #Записываем option(BUILD_TESTS "Build tests" OFF) в файл CMakeLists.txt
 option(BUILD_TESTS "Build tests" OFF)
 ' CMakeLists.txt
 $ cat >> CMakeLists.txt <<EOF
