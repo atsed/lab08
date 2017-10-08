@@ -27,13 +27,13 @@ $ export GITHUB_USERNAME=poljkee2010 # Устанавливаем значени
 ```ShellSession
 $ git clone https://github.com/${GITHUB_USERNAME}/lab05 lab06
 Клонирование в «lab06»…
-$ cd lab06 # Переходим в каталог lab06
-$ git remote remove origin #Удалить старый репозиторий
+$ cd lab06 
+$ git remote remove origin 
 $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06         
 ```
 
 ```ShellSession
-$ mkdir tests       #Создаем каталог tests
+$ mkdir tests       				#Создаем каталог tests
 $ wget https://github.com/philsquared/Catch/releases/download/v1.9.3/catch.hpp -O tests/catch.hpp    #Подключаем библиотеку для модульного тестирования на языке С++ catch.hpp
 $ cat > tests/main.cpp <<EOF                    # Изменяем файл main.cpp
 #define CATCH_CONFIG_MAIN
@@ -86,7 +86,7 @@ EOF
 
 ```ShellSession
 $ cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=ON
-$ cmake --build _build # Запускаем сборку в каталоге _build
+$ cmake --build _build 						# Запускаем сборку в каталоге _build
 $ cmake --build _build --target test #Сборка test 
 ```
 
