@@ -19,7 +19,7 @@ $ open https://github.com/philsquared/Catch
 #### Установка значений для сервиса **GitHub**
 
 ```ShellSession
-$ export GITHUB_USERNAME=poljkee2010 # Устанавливаем значение переменной окружения GITHUB_USERNAME
+$ export GITHUB_USERNAME=<имя_пользователя> # Устанавливаем значение переменной окружения GITHUB_USERNAME
 ```
 
 #### Инициализируем директорию **lab06**
@@ -101,7 +101,7 @@ $ sed -i '' '/cmake --build _build --target install/a\
 ```
 
 ```ShellSession
-$ travis lint # display warnings for a .travis.yml
+$ travis lint 						# display warnings for a .travis.yml
 Warnings for .travis.yml:
 [x] value for addons section is empty, dropping
 [x] in addons section: unexpected key apt, dropping
