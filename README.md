@@ -29,11 +29,8 @@ $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab07
 ```
 #### Работа с Doxygen
 ```ShellSession
-#Создаем каталог docs
 $ mkdir docs
-#Создаем файл doxygen.conf
 $ doxygen -g docs/doxygen.conf
-#Редактирование файла doxygen.conf
 $ cat docs/doxygen.conf
 ```
 #### Работа с файлом doxygen.conf
@@ -51,8 +48,6 @@ $ sed -i '' 's/lab06/lab07/g' README.md
 ```
 #### Документирование и редактирование print.hpp
 ```ShellSession
-# документируем функции print
-#Редактируем файл print.hpp
 $ edit include/print.hpp
 ```
 #### Выполняем команды для настройки локального репозитория для дальйшей отправки
